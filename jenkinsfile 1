@@ -28,6 +28,7 @@ pipeline {
          sh 'chmod +x owasp-dependecy-check- 1.sh'
          sh 'bash owasp-dependecy-check- 1.sh'
          sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
+         
          }
        }
        
