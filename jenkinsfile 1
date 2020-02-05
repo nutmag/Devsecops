@@ -21,19 +21,8 @@ pipeline {
       }  
     }
     
-    stage ('Source Composition Analysis') {
-      steps {
-         sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/nutmag/Devsecops/master/owasp-dependecy-check-%201.sh" '
-         sh 'chmod +x owasp-dependecy-check-1.sh'
-         sh 'bash owasp-dependecy-check-1.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
-         
-         }
-       }
-       
        stage ('SAST') {
-      steps {
+        steps {
         withSonarQubeEnv('sonar') {
           sh 'mvn sonar:sonar'
           sh 'cat target/sonar/report-task.txt'
