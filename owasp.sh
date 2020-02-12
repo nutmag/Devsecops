@@ -17,7 +17,7 @@ fi
 docker pull owasp/dependency-check
 
 docker run --rm \
-    --volume $(pwd):/src \
+    --volume $(pwd):https://raw.githubusercontent.com/nutmag/Devsecops/master/owasp.sh \
     --volume "$DATA_DIRECTORY":/usr/share/dependency-check/data \
     --volume "$REPORT_DIRECTORY":/report \
     owasp/dependency-check \
