@@ -47,7 +47,7 @@ pipeline {
  } 
     stage ('Deploy-To-Tomcat') {
             steps {
-           sshagent(credentials:['tomcat']) {
+           sshagent(['tomcat']) {
                 sh 'scp -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no target/*.war kpmg@212.47.229.249:/opt/tomcat/webapps/webapp.war'
   }
  } 
