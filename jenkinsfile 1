@@ -27,8 +27,8 @@ pipeline {
          sh 'wget "https://raw.githubusercontent.com/nutmag/Devsecops/master/owasp.sh" '
          sh 'chmod +x owasp.sh'
          sh 'bash owasp.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
-         }
+         
+          }
         } 
         
        stage ('SAST') {
