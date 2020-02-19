@@ -9,38 +9,39 @@ pipeline {
         sh '''
                     echo "PATH = ${PATH}"
                     echo "M2_HOME = ${M2_HOME}"
-            '''   
+            ''' 
       }
     }
     
     stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
-        sh 'docker run gesellix/trufflehog --json https://github.com/nutmag/Devsecops.git > trufflehog'
+        sh 'docker run gesellix/trufflehog --json https://github.com/cehkunal/webapp.git > trufflehog'
         sh 'cat trufflehog'
-      }  
+      }
     }
     
-    stage ('Source Composition Analysis') {
+	stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
          sh 'wget "https://raw.githubusercontent.com/nutmag/Devsecops/master/owasp.sh" '
          sh 'chmod +x owasp.sh'
          sh 'bash owasp.sh'
-         
-          }
-        } 
         
-       stage ('SAST') {
-        steps {
-         withSonarQubeEnv('sonar') {
+      }
+    }
+    
+    stage ('SAST') {
+      steps {
+        withSonarQubeEnv('sonar') {
           sh 'mvn sonar:sonar'
           sh 'cat target/sonar/report-task.txt'
-          }
-         }
+        }
+      }
+    }
+    
+    stage ('Build') {
+      steps {
+      sh 'mvn clean package'
        }
-       
-  
-   
-  
- 
+    }
